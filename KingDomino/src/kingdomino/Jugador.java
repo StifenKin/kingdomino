@@ -55,7 +55,9 @@ public class Jugador {
 
 	public void colocarFicha(Ficha ficha) {
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("ingrese fila");
 		int fila = scanner.nextInt();
+		System.out.println("ingrese columna");
 		int columna = scanner.nextInt();
 		scanner.close();
 		
