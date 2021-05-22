@@ -38,7 +38,7 @@ public class SalaDeJuego {
 		this.jugadores.remove(jugador);
 		this.cantJugadores--;
 
-		if(this.cantJugadores == 1)
+		if(this.cantJugadores == 1 && this.estado == true)
 			getPartida().designarGanador(this);
 	}
 	
