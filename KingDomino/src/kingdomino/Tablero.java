@@ -54,10 +54,8 @@ public class Tablero {
 	}
 	
 	public void buscarGrupoDeTerritorios(int x, int y) {
-		if (tablero[x][y].isPuntuado() == false) {
-			if (tablero[x][y].getTipo() == "Vacio") {
+		if (tablero[x][y].isPuntuado() == false && tablero[x][y].getTipo() != "Vacio") {
 
-			} else {
 				grupo.add(tablero[x][y]);
 				tablero[x][y].setPuntuado(true);
 				
@@ -82,7 +80,6 @@ public class Tablero {
 						&& !tablero[x][y - 1].isPuntuado()) {
 					buscarGrupoDeTerritorios(x, y - 1);
 
-				}
 			}
 		}
 	}
