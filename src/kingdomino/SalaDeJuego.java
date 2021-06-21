@@ -8,7 +8,7 @@ public class SalaDeJuego {
 	private String nombreSala; 
 	private int cantJugadores = 0; 
 	private List<Jugador> jugadores = new ArrayList<Jugador>();
-	private boolean estado = false; 	// se refiere a sí hay una partida iniciada 
+	private boolean estado = false; 	// se refiere a sï¿½ hay una partida iniciada 
 	private Partida partida; 
 	
 	public SalaDeJuego(String nombre) {
@@ -81,6 +81,14 @@ public class SalaDeJuego {
 
 	public List<Jugador> getJugadores() {
 		return jugadores;
+	}
+
+	public String getNombreSala() {
+		return nombreSala;
+	}
+
+	public void setNombreSala(String nombreSala) {
+		this.nombreSala = nombreSala;
 	}
 
 	@Override

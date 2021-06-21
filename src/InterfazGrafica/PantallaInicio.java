@@ -74,7 +74,9 @@ public class PantallaInicio extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Agregar accion para ver las reglas
-
+				VentanaInstrucciones ventana2 = new VentanaInstrucciones();
+				ventana2.setVisible(true);
+				
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 165, 0));
@@ -110,7 +112,8 @@ public class PantallaInicio extends JFrame {
 	}
 
 	private void botonJugarActionPerformed(ActionEvent evt) {
-		txtNombre.setText("\"Bienvenido \"");
+		Lobby ventana3 = new Lobby(null, null, null);
+		ventana3.setVisible(true);
 	}
 
 	/**
