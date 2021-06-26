@@ -12,7 +12,7 @@ public class Territorio {
 	}
 
 	public boolean compararTerritorio(Territorio otroTerritorio) {
-		if(otroTerritorio.tipo == "Castillo")
+		if (otroTerritorio.tipo == "Castillo")
 			return true;
 		return this.tipo == otroTerritorio.tipo;
 	}
@@ -34,7 +34,7 @@ public class Territorio {
 	}
 
 	public int getImagenTerreno() {
-		if (this.tipo == "Castillo") 
+		if (this.tipo == "Castillo")
 			return 0;
 		if (this.tipo == "pradera") {
 			if (this.corona == 0)

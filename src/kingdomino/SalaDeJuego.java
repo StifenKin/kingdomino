@@ -91,6 +91,10 @@ public class SalaDeJuego {
 		return ventana;
 	}
 
+	public String getNombreSala() {
+		return nombreSala;
+	}
+
 	@Override
 	public String toString() {
 		return "Sala De Juego " + nombreSala + "\t Cantidad de Jugadores" + cantJugadores;
@@ -98,7 +102,7 @@ public class SalaDeJuego {
 
 	public static void main(String[] args) {
 		// Juego de 4 jugadores--------------
-		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
+		SalaDeJuego sala = new SalaDeJuego("Sala De Prueba");
 		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
 		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
 		Jugador jugador3 = new Jugador("Jugador3Azul", 3, "Azul");
@@ -111,7 +115,7 @@ public class SalaDeJuego {
 		// ----------------------------------
 
 		// Juego de 3 jugadores--------------
-//		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
+//		SalaDeJuego sala = new SalaDeJuego("Sala De Prueba");
 //		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
 //		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
 //		Jugador jugador3 = new Jugador("Jugador3Azul", 3, "Azul");
@@ -122,7 +126,7 @@ public class SalaDeJuego {
 		// ----------------------------------
 
 		// Juego de 2 jugadores--------------
-//		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
+//		SalaDeJuego sala = new SalaDeJuego("Sala De Prueba");
 //		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
 //		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
 //		jugador1.ingresarASalaDeJuego(sala);

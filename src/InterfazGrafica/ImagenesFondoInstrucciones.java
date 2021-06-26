@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 
 	public class ImagenesFondoInstrucciones extends JPanel{
+		
 		private ImageIcon icon;
 	
 		public ImagenesFondoInstrucciones(String num) {

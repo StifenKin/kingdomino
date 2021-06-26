@@ -69,12 +69,9 @@ public class Partida {
 	public void designarGanador(SalaDeJuego sala) {
 
 		if (sala.getCantJugadores() == 1) {
-			String mensaje = "GANADOR \n Felicitaciones "
-					+ sala.getJugadores().get(0).getNombreJugador()
-					+ ", tus oponentes dejaron la partida! \nPuntaje: "
-					+ sala.getJugadores().get(0).getPuntaje();
-			JOptionPane.showMessageDialog(null, mensaje, "¡PARTIDA FINALIZADA!", JOptionPane.INFORMATION_MESSAGE,
-					null);
+			String mensaje = "GANADOR \n Felicitaciones " + sala.getJugadores().get(0).getNombreJugador()
+					+ ", tus oponentes dejaron la partida! \nPuntaje: " + sala.getJugadores().get(0).getPuntaje();
+			JOptionPane.showMessageDialog(null, mensaje, "¡PARTIDA FINALIZADA!", JOptionPane.INFORMATION_MESSAGE, null);
 		}
 
 		boolean empate = false;

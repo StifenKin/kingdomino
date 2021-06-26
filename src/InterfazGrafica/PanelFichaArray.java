@@ -1,7 +1,7 @@
 package InterfazGrafica;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -20,6 +20,7 @@ import kingdomino.Ficha;
 
 public class PanelFichaArray extends JPanel {
 
+	private static final long serialVersionUID = 8986111656347104880L;
 	private ArrayList<Ficha> fichasRonda;
 	private int fichaElegida;
 	private int x;
@@ -75,28 +76,66 @@ public class PanelFichaArray extends JPanel {
 		this.x = 100;
 		this.y = 100;
 		for (int i = 0; i < this.fichasRonda.size(); i++) {
-				if (fichasRonda.get(i).getElegida() == -1)
-					g2d.drawImage(reyesImagenes.get(0), x + 30, 5, 90, 90, null);
-				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Rojo")
-					g2d.drawImage(reyesImagenes.get(1), x + 30, 5, 90, 90, null);
-				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Azul")
-					g2d.drawImage(reyesImagenes.get(2), x + 30, 5, 90, 90, null);
-				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Amarillo")
-					g2d.drawImage(reyesImagenes.get(3), x + 30, 5, 90, 90, null);
-				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Verde")
-					g2d.drawImage(reyesImagenes.get(4), x + 30, 5, 90, 90, null);
+			if (fichasRonda.get(i).getElegida() == -1)
+				g2d.drawImage(reyesImagenes.get(0), x + 30, 5, 90, 90, null);
+			else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Rojo")
+				g2d.drawImage(reyesImagenes.get(1), x + 30, 5, 90, 90, null);
+			else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Azul")
+				g2d.drawImage(reyesImagenes.get(2), x + 30, 5, 90, 90, null);
+			else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Amarillo")
+				g2d.drawImage(reyesImagenes.get(3), x + 30, 5, 90, 90, null);
+			else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Verde")
+				g2d.drawImage(reyesImagenes.get(4), x + 30, 5, 90, 90, null);
 
-			g2d.drawImage(ventana.getTerrenos().get(fichasRonda.get(i).getCuadroIzquierdo().getImagenTerreno()), x, y,
-					FICHA_LARGO / 2, FICHA_ALTO, null);
-			g2d.drawImage(ventana.getTerrenos().get(fichasRonda.get(i).getCuadroDerecho().getImagenTerreno()),
-					x + (FICHA_LARGO / 2), y, FICHA_LARGO / 2, FICHA_ALTO, null);
-			g2d.setColor(Color.WHITE);
-			g2d.setFont(new Font("Consolas", Font.BOLD, 30));
-			g2d.drawString(fichasRonda.get(i).getNumeroFicha() + "", x + (FICHA_LARGO / 2) - 10,
-					y + (FICHA_ALTO / 2) + 7);
+			int coordX = 0, coordY = 0;
+			if (this.fichasRonda.get(i).getPosicion() == 0) {
+				coordX = x;
+				coordY = y;
+			}
+			if (this.fichasRonda.get(i).getPosicion() == 1) {
+				coordX = x + (FICHA_LARGO / 4);
+				coordY = y + (FICHA_LARGO / 2);
+			}
+			if (this.fichasRonda.get(i).getPosicion() == 2) {
+				coordX = x + (FICHA_LARGO / 2);
+				coordY = y;
+			}
+			if (this.fichasRonda.get(i).getPosicion() == 3) {
+				coordX = x + (FICHA_LARGO / 4);
+				coordY = y;
+			}
+			g2d.drawImage(ventana.getTerrenos().get(fichasRonda.get(i).getCuadroIzquierdo().getImagenTerreno()), coordX,
+					coordY, FICHA_LARGO / 2, FICHA_ALTO, null);
 			g2d.setColor(Color.BLACK);
-			g2d.setFont(new Font("Consolas", Font.PLAIN, 20));
-			g2d.drawString("Posicion " + fichasRonda.get(i).getPosicion(), x, y + (FICHA_ALTO) + 20);
+			g2d.setStroke(new BasicStroke(3));
+			g2d.drawRect(coordX - 2, coordY, FICHA_ALTO + 3, FICHA_ALTO + 3);
+
+			if (this.fichasRonda.get(i).getPosicion() == 0) {
+				coordX = x + (FICHA_LARGO / 2);
+				coordY = y;
+			}
+			if (this.fichasRonda.get(i).getPosicion() == 1) {
+				coordX = x + (FICHA_LARGO / 4);
+				coordY = y;
+			}
+			if (this.fichasRonda.get(i).getPosicion() == 2) {
+				coordX = x;
+				coordY = y;
+			}
+			if (this.fichasRonda.get(i).getPosicion() == 3) {
+				coordX = x + (FICHA_LARGO / 4);
+				coordY = y + (FICHA_LARGO / 2);
+			}
+			g2d.drawImage(ventana.getTerrenos().get(fichasRonda.get(i).getCuadroDerecho().getImagenTerreno()), coordX,
+					coordY, FICHA_LARGO / 2, FICHA_ALTO, null);
+
+//			g2d.setColor(Color.WHITE);
+//			g2d.setFont(new Font("Consolas", Font.BOLD, 30));
+//			g2d.drawString(fichasRonda.get(i).getNumeroFicha() + "", x + (FICHA_LARGO / 2) - 10,
+//					y + (FICHA_ALTO / 2) + 7);
+//			g2d.setColor(Color.BLACK);
+//			g2d.setFont(new Font("Consolas", Font.PLAIN, 20));
+//			g2d.drawString("Posicion " + fichasRonda.get(i).getPosicion(), x, y + (FICHA_ALTO) + 20);
 			x += 275;
 		}
 

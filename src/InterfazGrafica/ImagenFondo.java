@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class ImagenFondo extends JPanel{
 
-	    @Override
+		@Override
 	    public void paint(Graphics g){
 	        Dimension dimension = this.getSize();
 	        ImageIcon icon = new ImageIcon(getClass().getResource("/imagenes/kingdomino.png"));

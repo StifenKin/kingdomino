@@ -92,14 +92,12 @@ public class Jugador {
 						JOptionPane.showMessageDialog(null, "Los territorios adyacentes no coinciden",
 								"Posición Incorrecta", JOptionPane.INFORMATION_MESSAGE, null);
 				}
-			}
-			else {
+			} else {
 				fichaColocada = true;
-				JOptionPane.showMessageDialog(null, "Descartaste tu ficha. Terminá tu turno",
-						"Descarte", JOptionPane.INFORMATION_MESSAGE, null);
+				JOptionPane.showMessageDialog(null, "Descartaste tu ficha. Terminá tu turno", "Descarte",
+						JOptionPane.INFORMATION_MESSAGE, null);
 				ventana.terminarTurno();
 			}
-				
 
 		} while (fichaColocada == false);
 	}

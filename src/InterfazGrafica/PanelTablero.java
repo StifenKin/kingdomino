@@ -19,6 +19,7 @@ import kingdomino.Jugador;
 
 public class PanelTablero extends JPanel {
 
+	private static final long serialVersionUID = 5182501522280082698L;
 	private List<Jugador> jugadores;
 	private VentanaPartida ventana;
 	private int turno;
@@ -28,15 +29,14 @@ public class PanelTablero extends JPanel {
 	private CountDownLatch finTurno = new CountDownLatch(1);
 	private int posicionElegidaX;
 	private int posicionElegidaY;
-	
-	
+
 	public PanelTablero(VentanaPartida ventana, List<Jugador> jugadores, int turno) {
 		this.ventana = ventana;
 		this.jugadores = jugadores;
 		this.turno = turno;
-		
+
 		this.setBackground(new Color(224, 175, 7));
-		
+
 		JButton btnTerminarTurno = new JButton("Terminar Turno");
 		btnTerminarTurno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -45,7 +45,7 @@ public class PanelTablero extends JPanel {
 		});
 		btnTerminarTurno.setBounds(10, 370, 150, 30);
 		this.add(btnTerminarTurno);
-		
+
 		JButton btnDescartar = new JButton("Descartar Ficha");
 		btnDescartar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,7 +55,7 @@ public class PanelTablero extends JPanel {
 		});
 		btnDescartar.setBounds(10, 320, 150, 30);
 		this.add(btnDescartar);
-		
+
 		JButton btnMostrarTableros = new JButton("Mostrar Tableros");
 		btnMostrarTableros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,15 +66,25 @@ public class PanelTablero extends JPanel {
 		btnMostrarTableros.setBounds(1025, 370, 150, 30);
 		this.add(btnMostrarTableros);
 
+		JButton btnMostrarPuntajes = new JButton("Mostrar Puntajes");
+		btnMostrarPuntajes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.mostrarPuntajesJugadores();
+			}
+
+		});
+		btnMostrarPuntajes.setBounds(1025, 320, 150, 30);
+		this.add(btnMostrarPuntajes);
+
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Point point = e.getPoint();				
+				Point point = e.getPoint();
 				int coordX = clicCoordenadaX(point);
 				int coordY = clicCoordenadaY(point);
-				if(coordX != -1 && coordY != -1)
+				if (coordX != -1 && coordY != -1)
 					elegirPosicion(coordX, coordY);
-					
+
 			}
 
 		});
@@ -88,18 +98,18 @@ public class PanelTablero extends JPanel {
 
 		this.x = 420;
 		this.y = 20;
-		
+
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font("Consolas", Font.PLAIN, 16));
 		g2d.drawString("Es el turno de: " + jugadores.get(turno).getNombreJugador(), 470, 10);
-		
-		for(int i = 0; i < jugadores.get(turno).getTablero().getTableroMatriz().length; i++) {
-			for(int j = 0; j < jugadores.get(turno).getTablero().getTableroMatriz().length; j++) {
+
+		for (int i = 0; i < jugadores.get(turno).getTablero().getTableroMatriz().length; i++) {
+			for (int j = 0; j < jugadores.get(turno).getTablero().getTableroMatriz().length; j++) {
 				g2d.setColor(Color.GRAY);
 				g2d.drawRect(x, y, 40, 40);
-				
+
 				int imagenTerreno = jugadores.get(turno).getTablero().getTablero(i, j).getImagenTerreno();
-				if(imagenTerreno != -1)
+				if (imagenTerreno != -1)
 					g2d.drawImage(ventana.getTerrenos().get(imagenTerreno), x, y, 40, 40, null);
 				x += 40;
 			}
@@ -108,33 +118,33 @@ public class PanelTablero extends JPanel {
 		}
 
 	}
-	
+
 	private int clicCoordenadaX(Point point) {
-		if(point.y >= 20 && point.y <= 380)
-			return (int)((point.y - 20)/40);
+		if (point.y >= 20 && point.y <= 380)
+			return (int) ((point.y - 20) / 40);
 		return -1;
 	}
-	
+
 	private int clicCoordenadaY(Point point) {
-		if(point.x >= 420 && point.x <= 780)
-			return (int)((point.x - 420)/40);
+		if (point.x >= 420 && point.x <= 780)
+			return (int) ((point.x - 420) / 40);
 		return -1;
 	}
-	
+
 	public synchronized void elegirPosicion(int coordX, int coordY) {
 		this.posicionElegidaX = coordX;
 		this.posicionElegidaY = coordY;
 		esperaPosicion.countDown();
 	}
-	
-	public synchronized void terminarTurno(){
+
+	public synchronized void terminarTurno() {
 		finTurno.countDown();
 	}
-	
+
 	private void descartar() {
 		elegirPosicion(-1, -1);
 	}
-	
+
 	public CountDownLatch getEsperaPosicion() {
 		return esperaPosicion;
 	}
@@ -158,5 +168,5 @@ public class PanelTablero extends JPanel {
 	public int getPosicionElegidaY() {
 		return posicionElegidaY;
 	}
-	
+
 }

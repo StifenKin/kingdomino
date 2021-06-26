@@ -33,7 +33,7 @@ public class PantallaInicio extends JFrame {
 
 		initComponents();
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	private void initComponents() {
 
