@@ -26,8 +26,8 @@ public class Tablero {
 	}
 	
 	public void redefinirLimitesDeTablero() {
-		int filaMax = 8, filaMin = 0;
-		int columnaMax = 8, columnaMin = 0;
+		int filaMax = 0, filaMin = 8;
+		int columnaMax = 0, columnaMin = 8;
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (tablero[i][j].getTipo() != "Vacio") {
@@ -47,10 +47,12 @@ public class Tablero {
 			}
 		}
 		
-		this.filaMin = filaMax - 4;
-		this.filaMax = filaMin - 4;
-		this.columnaMin = columnaMax - 4;
-		this.columnaMax = columnaMin - 4;
+		
+		
+		this.filaMax = filaMax + (5 - (filaMax - filaMin) - 1);
+		this.filaMin = filaMin - (5 - (filaMax - filaMin) - 1);
+		this.columnaMin = columnaMin - (5 - (columnaMax - columnaMin) - 1);
+		this.columnaMax = columnaMax + (5 - (columnaMax - columnaMin) - 1);
 	}
 	
 	public void buscarGrupoDeTerritorios(int x, int y) {
@@ -59,24 +61,24 @@ public class Tablero {
 				grupo.add(tablero[x][y]);
 				tablero[x][y].setPuntuado(true);
 				
-				if (tablero[x + 1][y].getTipo() == tablero[x][y].getTipo() && (x + 1 != filaMax + 1)
+				if (x < 8 && tablero[x + 1][y].getTipo() == tablero[x][y].getTipo() && (x + 1 != filaMax + 1)
 						&& tablero[x + 1][y].isPuntuado() == false) {
 					buscarGrupoDeTerritorios(x + 1, y);
 				}
 
-				if ((tablero[x - 1][y].getTipo() == tablero[x][y].getTipo()) && (x - 1 != filaMin - 1)
+				if (x > 0 && tablero[x - 1][y].getTipo() == tablero[x][y].getTipo() && (x - 1 != filaMin - 1)
 						&& !tablero[x - 1][y].isPuntuado()) {
 					buscarGrupoDeTerritorios(x - 1, y);
 
 				}
 
-				if (tablero[x][y + 1].getTipo() == tablero[x][y].getTipo() && (y + 1 != columnaMax + 1)
+				if (y < 8 && tablero[x][y + 1].getTipo() == tablero[x][y].getTipo() && (y + 1 != columnaMax + 1)
 						&& !tablero[x][y + 1].isPuntuado()) {
 					buscarGrupoDeTerritorios(x, y + 1);
 
 				}
 
-				if (tablero[x][y - 1].getTipo() == tablero[x][y].getTipo() && (y - 1 != columnaMin - 1)
+				if (y > 0 && tablero[x][y - 1].getTipo() == tablero[x][y].getTipo() && (y - 1 != columnaMin - 1)
 						&& !tablero[x][y - 1].isPuntuado()) {
 					buscarGrupoDeTerritorios(x, y - 1);
 
@@ -112,6 +114,10 @@ public class Tablero {
 
 	public Territorio getTablero(int fila, int columna) {
 		return tablero[fila][columna];
+	}
+	
+	public Territorio[][] getTableroMatriz() {
+		return tablero;
 	}
 
 	public void setTablero(int fila, int columna, Territorio territorio) {

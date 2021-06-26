@@ -2,6 +2,8 @@ package kingdomino;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Partida {
 
 	private ArrayList<Rey> reyes = new ArrayList<Rey>();
@@ -12,7 +14,7 @@ public class Partida {
 		this.mazoPartida.mezclarMazo();
 		this.mazoPartida.descartarFichas(sala.getCantJugadores());
 		this.iniciarTablero(sala);
-		this.iniciarReyes(sala);
+		// this.iniciarReyes(sala);
 		Ronda ronda1 = new Ronda(1);
 		ronda1.setFichasDeRonda(this.mazoPartida.repartirFichas(sala.getCantJugadores()));
 		return ronda1;
@@ -24,23 +26,23 @@ public class Partida {
 		}
 	}
 
-	public void iniciarReyes(SalaDeJuego sala) {
-		int contadorDeReyes = 0;
-		if (sala.getCantJugadores() == 2) {
-			for (int i = 0; i < sala.getCantJugadores(); i++) {
-				sala.getJugadores().get(i).setRey1(new Rey(contadorDeReyes++));
-				this.reyes.add(sala.getJugadores().get(i).getRey1());
-				sala.getJugadores().get(i).setRey2(new Rey(contadorDeReyes++));
-				this.reyes.add(sala.getJugadores().get(i).getRey2());
-			}
-		} else {
-			for (int i = 0; i < sala.getCantJugadores(); i++) {
-				sala.getJugadores().get(i).setRey1(new Rey(contadorDeReyes++));
-				this.reyes.add(sala.getJugadores().get(i).getRey1());
-			}
-		}
-
-	}
+//	public void iniciarReyes(SalaDeJuego sala) {
+//		int contadorDeReyes = 0;
+//		if (sala.getCantJugadores() == 2) {
+//			for (int i = 0; i < sala.getCantJugadores(); i++) {
+//				sala.getJugadores().get(i).setRey1(new Rey(contadorDeReyes++));
+//				this.reyes.add(sala.getJugadores().get(i).getRey1());
+//				sala.getJugadores().get(i).setRey2(new Rey(contadorDeReyes++));
+//				this.reyes.add(sala.getJugadores().get(i).getRey2());
+//			}
+//		} else {
+//			for (int i = 0; i < sala.getCantJugadores(); i++) {
+//				sala.getJugadores().get(i).setRey1(new Rey(contadorDeReyes++));
+//				this.reyes.add(sala.getJugadores().get(i).getRey1());
+//			}
+//		}
+//
+//	}
 
 	public ArrayList<Integer> sortearReyes(int cantJugadores) {
 		ArrayList<Integer> ordenReyes = new ArrayList<Integer>();
@@ -48,15 +50,15 @@ public class Partida {
 			for (int i = 0; i < 3; i++) {
 				int valor;
 				do {
-					valor = (int) Math.floor(Math.random() * 2);
+					valor = (int) Math.floor(Math.random() * 3);
 				} while (ordenReyes.contains(valor));
 				ordenReyes.add(valor);
 			}
 		} else {
 			for (int i = 0; i < 4; i++) {
-				int valor;
+				int valor = -1;
 				do {
-					valor = (int) Math.floor(Math.random() * 3);
+					valor = (int) Math.floor(Math.random() * 4);
 				} while (ordenReyes.contains(valor));
 				ordenReyes.add(valor);
 			}
@@ -66,11 +68,15 @@ public class Partida {
 
 	public void designarGanador(SalaDeJuego sala) {
 
-		if(sala.getCantJugadores() == 1) {
-			System.out.println("GANADOR \n Felicitaciones Jugador: tus oponentes dejaron la partida! \n"
-					+ sala.getJugadores().get(0).getNombreJugador());
+		if (sala.getCantJugadores() == 1) {
+			String mensaje = "GANADOR \n Felicitaciones "
+					+ sala.getJugadores().get(0).getNombreJugador()
+					+ ", tus oponentes dejaron la partida! \nPuntaje: "
+					+ sala.getJugadores().get(0).getPuntaje();
+			JOptionPane.showMessageDialog(null, mensaje, "¡PARTIDA FINALIZADA!", JOptionPane.INFORMATION_MESSAGE,
+					null);
 		}
-		
+
 		boolean empate = false;
 		ArrayList<Integer> jugadorMayorPuntaje = new ArrayList<Integer>();
 		int mayorPuntaje = 0;
@@ -109,21 +115,31 @@ public class Partida {
 					empate = true;
 				}
 			}
-			if (jugadorMayorTerritorio.size() == 1)
-				System.out.println("GANADOR \n Felicitaciones Jugador, tuviste el territorio más grande! \n"
-						+ sala.getJugadores().get(jugadorMayorTerritorio.get(0)).getNombreJugador());
-			else {
-				System.out.println("EMPATE Felicitaciones Jugadores: ");
-				for (int i = 0; i < jugadorMayorTerritorio.size(); i++) {
-					System.out.println(sala.getJugadores().get(jugadorMayorTerritorio.get(i)).getNombreJugador());
-				}
+			if (jugadorMayorTerritorio.size() == 1) {
+				String mensaje = "GANADOR \n Felicitaciones "
+						+ sala.getJugadores().get(jugadorMayorPuntaje.get(0)).getNombreJugador()
+						+ ", tuviste el territorio más grande! \nPuntaje: "
+						+ sala.getJugadores().get(jugadorMayorPuntaje.get(0)).getPuntaje();
+				JOptionPane.showMessageDialog(null, mensaje, "¡PARTIDA FINALIZADA!", JOptionPane.INFORMATION_MESSAGE,
+						null);
 			}
-		}
-		else {
-			System.out.println("GANADOR \n Felicitaciones Jugador, tuviste el mejor puntaje! \n"
-					+ sala.getJugadores().get(jugadorMayorPuntaje.get(0)).getNombreJugador());
-		}
 
+			else {
+				String mensaje = "EMPATE Felicitaciones Jugadores: ";
+				for (int i = 0; i < jugadorMayorTerritorio.size(); i++) {
+					mensaje += "\n" + sala.getJugadores().get(jugadorMayorTerritorio.get(i)).getNombreJugador()
+							+ "\t Puntaje: " + sala.getJugadores().get(jugadorMayorTerritorio.get(i)).getPuntaje();
+				}
+				JOptionPane.showMessageDialog(null, mensaje, "¡PARTIDA FINALIZADA!", JOptionPane.INFORMATION_MESSAGE,
+						null);
+			}
+		} else {
+			String mensaje = "GANADOR \n Felicitaciones "
+					+ sala.getJugadores().get(jugadorMayorPuntaje.get(0)).getNombreJugador()
+					+ ", tuviste el mejor puntaje! \nPuntaje: "
+					+ sala.getJugadores().get(jugadorMayorPuntaje.get(0)).getPuntaje();
+			JOptionPane.showMessageDialog(null, mensaje, "¡PARTIDA FINALIZADA!", JOptionPane.INFORMATION_MESSAGE, null);
+		}
 	}
 
 	public Mazo getMazoPartida() {

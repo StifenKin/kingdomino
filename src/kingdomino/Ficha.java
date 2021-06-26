@@ -7,7 +7,7 @@ public class Ficha implements Comparable<Ficha>{
 	private Territorio cuadroDerecho;
 	private boolean numeroHaciaArriba = true; 
 	private int posicion = 0;
-	private boolean elegida = false;
+	private int elegida = -1;
 	
 	public Ficha(Territorio cuadroIzq, Territorio cuadroDer, int contadorDeFichas) {
 		this.cuadroIzquierdo = cuadroIzq;
@@ -55,17 +55,22 @@ public class Ficha implements Comparable<Ficha>{
 		return cuadroDerecho;
 	}
 
-	public boolean isElegida() {
+	public int getElegida() {
 		return elegida;
 	}
 
-	public void setElegida(boolean elegida) {
+	public void setElegida(int elegida) {
 		this.elegida = elegida;
 	}
 
 	@Override
 	public int compareTo(Ficha otra) {
 		return this.numeroFicha - otra.numeroFicha;
+	}
+
+	@Override
+	public String toString() {
+		return "Ficha [numeroFicha=" + numeroFicha + "]";
 	}
 	
 }

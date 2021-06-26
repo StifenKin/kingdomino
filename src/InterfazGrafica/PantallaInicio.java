@@ -112,8 +112,7 @@ public class PantallaInicio extends JFrame {
 	}
 
 	private void botonJugarActionPerformed(ActionEvent evt) {
-		Lobby ventana3 = new Lobby(null, null, null);
-		ventana3.setVisible(true);
+		txtNombre.setText("\"Bienvenido\"");
 	}
 
 	/**

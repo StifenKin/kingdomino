@@ -102,7 +102,7 @@ public class VentanaInstrucciones extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				ImagenesFondoInstrucciones fondoAnt;
-				if(numInstruccion.equals("4")) { 
+				if(numInstruccion.equals("4")) {
 					fondoAnt = new ImagenesFondoInstrucciones("3");
 					numInstruccion = "3";
 				}else if(numInstruccion.equals("3")) {
@@ -122,11 +122,11 @@ public class VentanaInstrucciones extends JFrame {
 				botonSig.setForeground(new Color(0, 0, 0));
 				botonSig.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 26));
 				
+				
 				botonAnt.setOpaque(false);
 				botonAnt.setForeground(Color.BLACK);
 				botonAnt.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 26));
 				botonAnt.setBackground(new Color(0, 0, 0, 0));
-				
 
 				GroupLayout layout = new GroupLayout(getContentPane());
 				layout.setHorizontalGroup(

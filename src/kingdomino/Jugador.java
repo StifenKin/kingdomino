@@ -1,7 +1,10 @@
 package kingdomino;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+import InterfazGrafica.VentanaPartida;
 
 public class Jugador {
 
@@ -10,12 +13,13 @@ public class Jugador {
 	private String color;
 	private int puntaje;
 	private Tablero tablero;
-	private Rey rey1;
-	private Rey rey2;
+//	private Rey rey1;
+//	private Rey rey2;
 
-	public Jugador(String nombre, int numeroId) {
+	public Jugador(String nombre, int numeroId, String color) {
 		this.nombreJugador = nombre;
 		this.numeroId = numeroId;
+		this.color = color;
 	}
 
 	public SalaDeJuego crearSalaDeJuego(String nombre) {
@@ -41,84 +45,103 @@ public class Jugador {
 		sala.crearPartida();
 	}
 
-	public int colocarRey(Rey rey, ArrayList<Ficha> fichasDeRonda) {
-		Scanner scanner = new Scanner(System.in);
-		int numeroDeFicha;
+	public int colocarRey(int nroJugador, ArrayList<Ficha> fichasDeRonda, VentanaPartida ventana) {
+		int numeroDeFicha = -1;
 		do {
-			numeroDeFicha = scanner.nextInt();
-		}while(fichasDeRonda.get(numeroDeFicha).isElegida());
-		scanner.close();
-		
-		rey.setCarta(fichasDeRonda.get(numeroDeFicha).getNumeroFicha());
+			numeroDeFicha = ventana.traerFichaElegida();
+
+		} while (fichasDeRonda.get(numeroDeFicha).getElegida() != -1);
+
+		if (fichasDeRonda.get(numeroDeFicha).getElegida() == -1) {
+			fichasDeRonda.get(numeroDeFicha).setElegida(nroJugador);
+			ventana.repaint();
+		}
 		return numeroDeFicha;
 	}
 
-	public void colocarFicha(Ficha ficha) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("ingrese fila");
-		int fila = scanner.nextInt();
-		System.out.println("ingrese columna");
-		int columna = scanner.nextInt();
-		scanner.close();
-		
-		int filaAdy = fila, columnaAdy = columna;
-		if (ficha.getPosicion() == 0)
-			columnaAdy++;
-		if (ficha.getPosicion() == 1)
-			filaAdy--;
-		if (ficha.getPosicion() == 2)
-			columnaAdy--;
-		if (ficha.getPosicion() == 3)
-			filaAdy++;
-		
-		if (validarPosicion(fila, columna) && validarPosicion(filaAdy, columnaAdy)) {
-			if (validarTerrenosAdyacentes(fila, columna) || validarTerrenosAdyacentes(filaAdy, columnaAdy)) {
-				this.tablero.redefinirLimitesDeTablero();
-				this.tablero.setTablero(fila, columna, ficha.getCuadroIzquierdo());
-				this.tablero.setTablero(filaAdy, columnaAdy, ficha.getCuadroDerecho());
+	public void colocarFicha(Ficha ficha, int turno, VentanaPartida ventana) {
+		int fila, columna;
+		int[] coordenadas = new int[2];
+		boolean fichaColocada = false;
+		do {
+			coordenadas = ventana.traerPosicionElegida();
+			fila = coordenadas[0];
+			columna = coordenadas[1];
+
+			if (fila != -1 && columna != -1) {
+				int filaAdy = fila, columnaAdy = columna;
+				if (ficha.getPosicion() == 0)
+					columnaAdy++;
+				if (ficha.getPosicion() == 1)
+					filaAdy--;
+				if (ficha.getPosicion() == 2)
+					columnaAdy--;
+				if (ficha.getPosicion() == 3)
+					filaAdy++;
+
+				if (validarPosicion(fila, columna) == true && validarPosicion(filaAdy, columnaAdy) == true) {
+					if (validarTerrenosAdyacentes(fila, columna, ficha.getCuadroIzquierdo()) == true
+							|| validarTerrenosAdyacentes(filaAdy, columnaAdy, ficha.getCuadroDerecho()) == true) {
+						this.tablero.setTablero(fila, columna, ficha.getCuadroIzquierdo());
+						this.tablero.setTablero(filaAdy, columnaAdy, ficha.getCuadroDerecho());
+						this.tablero.redefinirLimitesDeTablero();
+						ventana.actualizarTablero(turno);
+						ventana.terminarTurno();
+						fichaColocada = true;
+					} else
+						JOptionPane.showMessageDialog(null, "Los territorios adyacentes no coinciden",
+								"Posición Incorrecta", JOptionPane.INFORMATION_MESSAGE, null);
+				}
 			}
-		}
+			else {
+				fichaColocada = true;
+				JOptionPane.showMessageDialog(null, "Descartaste tu ficha. Terminá tu turno",
+						"Descarte", JOptionPane.INFORMATION_MESSAGE, null);
+				ventana.terminarTurno();
+			}
+				
+
+		} while (fichaColocada == false);
 	}
 
-	private boolean validarTerrenosAdyacentes(int fila, int columna) {
+	private boolean validarTerrenosAdyacentes(int fila, int columna, Territorio territorio) {
 		if (fila - 1 >= this.tablero.getFilaMin()) {
-			if (this.tablero.getTablero(fila, columna)
-					.compararTerritorio(this.tablero.getTablero(fila - 1, columna)) == false) {
-				return false;
+			if (territorio.compararTerritorio(this.tablero.getTablero(fila - 1, columna)) == true) {
+				return true;
 			}
 		}
 
 		if (fila + 1 <= this.tablero.getFilaMax()) {
-			if (this.tablero.getTablero(fila, columna)
-					.compararTerritorio(this.tablero.getTablero(fila + 1, columna)) == false) {
-				return false;
+			if (territorio.compararTerritorio(this.tablero.getTablero(fila + 1, columna)) == true) {
+				return true;
 			}
 		}
 
 		if (columna - 1 >= this.tablero.getColumnaMin()) {
-			if (this.tablero.getTablero(fila, columna)
-					.compararTerritorio(this.tablero.getTablero(fila, columna - 1)) == false) {
-				return false;
+			if (territorio.compararTerritorio(this.tablero.getTablero(fila, columna - 1)) == true) {
+				return true;
 			}
 		}
 
-		if (columna + 1 >= this.tablero.getColumnaMax()) {
-			if (this.tablero.getTablero(fila, columna).compararTerritorio(this.tablero.getTablero(fila, columna + 1))) {
-				return false;
+		if (columna + 1 <= this.tablero.getColumnaMax()) {
+			if (territorio.compararTerritorio(this.tablero.getTablero(fila, columna + 1)) == true) {
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	private boolean validarPosicion(int fila, int columna) {
 		if (this.tablero.getFilaMin() > fila || fila > this.tablero.getFilaMax()
 				|| this.tablero.getColumnaMin() > columna || columna > this.tablero.getColumnaMax()) {
-			System.out.println("La posición está fuera de los límites");
+			JOptionPane.showMessageDialog(null, "La posición está fuera de los límites", "Posición Incorrecta",
+					JOptionPane.INFORMATION_MESSAGE, null);
 			return false;
 		}
 		if (this.tablero.getTablero(fila, columna).getTipo() != "Vacio") {
-			System.out.println("La posición ya tiene una ficha");
+			JOptionPane.showMessageDialog(null, "La posición ya tiene una ficha asignada", "Posición Incorrecta",
+					JOptionPane.INFORMATION_MESSAGE, null);
 			return false;
 		}
 		return true;
@@ -144,11 +167,11 @@ public class Jugador {
 	public int getPuntaje() {
 		return puntaje;
 	}
-	
+
 	public void setPuntaje(int puntaje) {
 		this.puntaje = puntaje;
 	}
-	
+
 	public Tablero getTablero() {
 		return tablero;
 	}
@@ -157,20 +180,20 @@ public class Jugador {
 		this.tablero = tablero;
 	}
 
-	public void setRey1(Rey rey1) {
-		this.rey1 = rey1;
-	}
-
-	public void setRey2(Rey rey2) {
-		this.rey2 = rey2;
-	}
-
-	public Rey getRey1() {
-		return rey1;
-	}
-
-	public Rey getRey2() {
-		return rey2;
-	}
+//	public void setRey1(Rey rey1) {
+//		this.rey1 = rey1;
+//	}
+//
+//	public void setRey2(Rey rey2) {
+//		this.rey2 = rey2;
+//	}
+//
+//	public Rey getRey1() {
+//		return rey1;
+//	}
+//
+//	public Rey getRey2() {
+//		return rey2;
+//	}
 
 }
