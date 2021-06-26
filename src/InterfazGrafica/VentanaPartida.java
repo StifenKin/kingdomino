@@ -32,58 +32,11 @@ public class VentanaPartida extends JFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		//this.setBounds(100, 100, 450, 300);
 		this.setVisible(true);
 		
-		//Container contentPane = getContentPane();
 		contentPane = getContentPane();
-		//this.setBackground(new Color(246, 196, 23));
-		
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		//contentPane.setLayout(new GridLayout(2, 1));
-//		this.getContentPane().setBackground(new Color(246, 196, 23));
-		
-		//this.sala.jugarPartida();
-		
-		//ArrayList<Ficha> fichasRonda = new ArrayList<Ficha>();
-//		fichasRonda.add(new Ficha(new Territorio("campo", 0), new Territorio("campo", 0), 1));
-//		fichasRonda.add(new Ficha(new Territorio("mina", 2), new Territorio("campo", 0), 2));
-//		fichasRonda.add(new Ficha(new Territorio("campo", 0), new Territorio("campo", 0), 3));
-//		fichasRonda.add(new Ficha(new Territorio("mina", 2), new Territorio("campo", 0), 4));
-//		System.out.println("ES"+fichasRonda.size());
 
-//		fichas = new PanelFichaArray();
-//		contentPane.add(fichas);
-		
-		//VentanaPartida.mainFrame = this;
-		//ArrayList<Ficha> fichasRonda = new ArrayList<Ficha>();
-//		fichasRonda.add(new Ficha(new Territorio("campo", 0), new Territorio("campo", 0), 1));
-//		fichasRonda.add(new Ficha(new Territorio("mina", 2), new Territorio("campo", 0), 2));
-//		fichasRonda.add(new Ficha(new Territorio("campo", 0), new Territorio("campo", 0), 3));
-//		fichasRonda.add(new Ficha(new Territorio("mina", 2), new Territorio("campo", 0), 4));
-//		System.out.println("ES"+fichasRonda.size());
-//		
-//		actualizarFichasRonda(fichasRonda);
-//		
-//		ArrayList<Jugador> jugadoresSala = new ArrayList<Jugador>();
-//		Jugador jugador0 = new Jugador("Camila", 1, "Rojo");
-//		Tablero tablero = new Tablero();
-//		tablero.setTablero(3, 4, new Territorio("lago", 1));
-//		tablero.setTablero(3, 5, new Territorio("mina", 0));
-//		tablero.setTablero(2, 5, new Territorio("mina", 1));
-//		tablero.setTablero(2, 6, new Territorio("campo", 0));
-//		tablero.setTablero(2, 4, new Territorio("lago", 0));
-//		tablero.setTablero(1, 4, new Territorio("lago", 0));
-//		tablero.setTablero(2, 3, new Territorio("lago", 1));
-//		tablero.setTablero(3, 3, new Territorio("campo", 0));
-//		tablero.setTablero(3, 2, new Territorio("campo", 0));
-//		tablero.setTablero(4, 2, new Territorio("campo", 1));
-//		jugador0.setTablero(tablero);
-//		jugadoresSala.add(jugador0);
-		
 		terrenos = new ArrayList<BufferedImage>();
 		try {
 			for (int i = 0; i < 17; i++) {
@@ -93,7 +46,6 @@ public class VentanaPartida extends JFrame {
 			e.printStackTrace();
 		}
 
-		//tableros = new PanelTablero(this, jugadoresSala, 0);
 		tableros = new PanelTablero(this, sala.getJugadores(), 0);
 		tableros.setBounds(0, 250, 1200, 450);
 		contentPane.add(tableros);
@@ -156,7 +108,12 @@ public class VentanaPartida extends JFrame {
 		
 		tableros.setFinTurno(new CountDownLatch(1));
 	}
-
+	
+	public void mostrarTablerosJugadores() {
+		VentanaMostrarTableros ventMostTab = new VentanaMostrarTableros(this, sala.getJugadores());
+		ventMostTab.setVisible(true);
+	}
+	
 	public ArrayList<BufferedImage> getTerrenos() {
 		return terrenos;
 	}

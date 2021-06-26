@@ -1,6 +1,7 @@
 package InterfazGrafica;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -55,6 +56,15 @@ public class PanelTablero extends JPanel {
 		btnDescartar.setBounds(10, 320, 150, 30);
 		this.add(btnDescartar);
 		
+		JButton btnMostrarTableros = new JButton("Mostrar Tableros");
+		btnMostrarTableros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.mostrarTablerosJugadores();
+			}
+
+		});
+		btnMostrarTableros.setBounds(1025, 370, 150, 30);
+		this.add(btnMostrarTableros);
 
 		this.addMouseListener(new MouseAdapter() {
 			@Override
@@ -78,6 +88,10 @@ public class PanelTablero extends JPanel {
 
 		this.x = 420;
 		this.y = 20;
+		
+		g2d.setColor(Color.BLACK);
+		g2d.setFont(new Font("Consolas", Font.PLAIN, 16));
+		g2d.drawString("Es el turno de: " + jugadores.get(turno).getNombreJugador(), 470, 10);
 		
 		for(int i = 0; i < jugadores.get(turno).getTablero().getTableroMatriz().length; i++) {
 			for(int j = 0; j < jugadores.get(turno).getTablero().getTableroMatriz().length; j++) {

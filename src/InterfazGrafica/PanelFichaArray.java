@@ -75,20 +75,6 @@ public class PanelFichaArray extends JPanel {
 		this.x = 100;
 		this.y = 100;
 		for (int i = 0; i < this.fichasRonda.size(); i++) {
-//			if (ventana.getSala().getCantJugadores() == 2) {
-//				int auxNroJugador = fichasRonda.get(i).getElegida();
-//				if (auxNroJugador == -1)
-//					g2d.drawImage(reyesImagenes.get(0), x + 30, 5, 90, 90, null);
-////				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Rojo")
-////					g2d.drawImage(reyesImagenes.get(1), x + 30, 5, 90, 90, null);
-////				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Azul")
-////					g2d.drawImage(reyesImagenes.get(2), x + 30, 5, 90, 90, null);
-////				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Amarillo")
-////					g2d.drawImage(reyesImagenes.get(3), x + 30, 5, 90, 90, null);
-////				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Verde")
-////					g2d.drawImage(reyesImagenes.get(4), x + 30, 5, 90, 90, null);
-//
-//			} else {
 				if (fichasRonda.get(i).getElegida() == -1)
 					g2d.drawImage(reyesImagenes.get(0), x + 30, 5, 90, 90, null);
 				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Rojo")
@@ -99,7 +85,6 @@ public class PanelFichaArray extends JPanel {
 					g2d.drawImage(reyesImagenes.get(3), x + 30, 5, 90, 90, null);
 				else if (ventana.getSala().getJugadores().get(fichasRonda.get(i).getElegida()).getColor() == "Verde")
 					g2d.drawImage(reyesImagenes.get(4), x + 30, 5, 90, 90, null);
-//			}
 
 			g2d.drawImage(ventana.getTerrenos().get(fichasRonda.get(i).getCuadroIzquierdo().getImagenTerreno()), x, y,
 					FICHA_LARGO / 2, FICHA_ALTO, null);
