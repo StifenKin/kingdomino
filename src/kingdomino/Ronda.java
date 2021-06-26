@@ -28,12 +28,12 @@ public class Ronda {
 				System.out.println("turno" + i);
 				int rey = ordenTurnos.get(i);
 				if (rey == 0 || rey == 1) {
-					int orden = sala.getJugadores().get(0).colocarRey(rey,
+					int orden = sala.getJugadores().get(0).colocarRey(0,
 							this.fichasDeRonda, sala.ventana);
 					nuevoOrden[orden] = rey;
 				}
 				if (rey == 2 || rey == 3) {
-					int orden = sala.getJugadores().get(1).colocarRey(rey,
+					int orden = sala.getJugadores().get(1).colocarRey(1,
 							this.fichasDeRonda, sala.ventana);
 					nuevoOrden[orden] = rey;
 				}
@@ -71,10 +71,24 @@ public class Ronda {
 	}
 
 	public void jugarUltimaRonda(SalaDeJuego sala) {
-		for (int i = 0; i < this.ordenTurnos.size(); i++) {
-			sala.ventana.actualizarTablero(this.ordenTurnos.get(i));
-			sala.getJugadores().get(this.ordenTurnos.get(i)).colocarFicha(this.fichasDeRonda.get(i), this.ordenTurnos.get(i), sala.ventana);
-		}
+		if(sala.getCantJugadores() == 2) {
+			for (int i = 0; i < ordenTurnos.size(); i++) {
+				int rey = ordenTurnos.get(i);
+				if (rey == 0 || rey == 1) {
+					sala.ventana.actualizarTablero(0);
+					sala.getJugadores().get(0).colocarFicha(this.fichasDeRonda.get(i), 0, sala.ventana);
+				}
+				if (rey == 2 || rey == 3) {
+					sala.ventana.actualizarTablero(1);
+					sala.getJugadores().get(1).colocarFicha(this.fichasDeRonda.get(i), 1, sala.ventana);
+				}
+			}
+		}else {
+			for (int i = 0; i < this.ordenTurnos.size(); i++) {
+				sala.ventana.actualizarTablero(this.ordenTurnos.get(i));
+				sala.getJugadores().get(this.ordenTurnos.get(i)).colocarFicha(this.fichasDeRonda.get(i), this.ordenTurnos.get(i), sala.ventana);
+			}
+		}		
 	}
 
 	private ArrayList<Integer> asignarNuevosTurnos(int[] nuevoOrden) {
@@ -90,15 +104,26 @@ public class Ronda {
 		if (sala.getCantJugadores() == 2) {
 			int[] nuevoOrden = new int[4];
 			for (int i = 0; i < ordenTurnos.size(); i++) {
-				sala.getJugadores().get(this.ordenTurnos.get(i)).colocarFicha(this.fichasDeRonda.get(i), this.ordenTurnos.get(i), sala.ventana);
 				int rey = ordenTurnos.get(i);
 				if (rey == 0 || rey == 1) {
-					int orden = sala.getJugadores().get(0).colocarRey(rey,
+					sala.ventana.actualizarTablero(0);
+					sala.getJugadores().get(0).colocarFicha(this.fichasDeRonda.get(i), 0, sala.ventana);
+				}
+				if (rey == 2 || rey == 3) {
+					sala.ventana.actualizarTablero(1);
+					sala.getJugadores().get(1).colocarFicha(this.fichasDeRonda.get(i), 1, sala.ventana);
+				}
+			}
+			sala.ventana.ponerFichasEnVentana(ronda.fichasDeRonda);
+			for (int i = 0; i < ordenTurnos.size(); i++) {
+				int rey = ordenTurnos.get(i);
+				if (rey == 0 || rey == 1) {
+					int orden = sala.getJugadores().get(0).colocarRey(0,
 							ronda.fichasDeRonda, sala.ventana);
 					nuevoOrden[orden] = rey;
 				}
 				if (rey == 2 || rey == 3) {
-					int orden = sala.getJugadores().get(1).colocarRey(rey,
+					int orden = sala.getJugadores().get(1).colocarRey(1,
 							ronda.fichasDeRonda, sala.ventana);
 					nuevoOrden[orden] = rey;
 				}

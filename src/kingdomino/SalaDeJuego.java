@@ -59,12 +59,16 @@ public class SalaDeJuego {
 		else
 			cantRondas = 10;
 		ronda = this.partida.prepararPartida(this);
+		System.out.println("1era ronda inicio");
 		ronda = ronda.jugarPrimeraRonda(this);
+		System.out.println("1era ronda fin");
 		for (int i = 0; i < cantRondas; i++) {
 			ronda = ronda.jugarRonda(this);
+			System.out.println(i+" ronda fin");
 		}
 		ronda.jugarUltimaRonda(this);
 		this.partida.designarGanador(this);
+		System.out.println("fin juego");
 	}
 
 	public boolean isEstado() {
@@ -98,16 +102,16 @@ public class SalaDeJuego {
 
 	public static void main(String[] args) {
 		// Juego de 4 jugadores--------------
-		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
-		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
-		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
-		Jugador jugador3 = new Jugador("Jugador3Azul", 3, "Azul");
-		Jugador jugador4 = new Jugador("Jugador4Amarillo", 4, "Amarillo");
-		jugador1.ingresarASalaDeJuego(sala);
-		jugador2.ingresarASalaDeJuego(sala);
-		jugador3.ingresarASalaDeJuego(sala);
-		jugador4.ingresarASalaDeJuego(sala);
-		jugador1.iniciarPartida(sala);
+//		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
+//		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
+//		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
+//		Jugador jugador3 = new Jugador("Jugador3Azul", 3, "Azul");
+//		Jugador jugador4 = new Jugador("Jugador4Amarillo", 4, "Amarillo");
+//		jugador1.ingresarASalaDeJuego(sala);
+//		jugador2.ingresarASalaDeJuego(sala);
+//		jugador3.ingresarASalaDeJuego(sala);
+//		jugador4.ingresarASalaDeJuego(sala);
+//		jugador1.iniciarPartida(sala);
 		// ----------------------------------
 
 		// Juego de 3 jugadores--------------
@@ -122,12 +126,12 @@ public class SalaDeJuego {
 		// ----------------------------------
 
 		// Juego de 2 jugadores--------------
-//		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
-//		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
-//		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
-//		jugador1.ingresarASalaDeJuego(sala);
-//		jugador2.ingresarASalaDeJuego(sala);
-//		jugador1.iniciarPartida(sala);
+		SalaDeJuego sala = new SalaDeJuego("Juego Prueba");
+		Jugador jugador1 = new Jugador("Jugador1Rojo", 1, "Rojo");
+		Jugador jugador2 = new Jugador("Jugador2Verde", 2, "Verde");
+		jugador1.ingresarASalaDeJuego(sala);
+		jugador2.ingresarASalaDeJuego(sala);
+		jugador1.iniciarPartida(sala);
 		// ----------------------------------
 	}
 }
